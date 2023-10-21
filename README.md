@@ -31,7 +31,7 @@ cargo add rsmanuf
 
 To get a manufacturer, you simply need to do the following
 
-```rs
+```rust
 fn main() {
     let index = rsmanuf::Index::new();
     match index.search("C4:A8:1D:73:D7:8C") {
