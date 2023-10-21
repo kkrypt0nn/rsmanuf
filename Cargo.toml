@@ -1,0 +1,30 @@
+[package]
+name = "rsmanuf"
+description = "📇 A very simple Rust library to get the manufacturer of a specific MAC address"
+authors = ["Krypton <root@krypton.ninja>"]
+version = "2.0.2"
+documentation = "https://docs.rs/rsmanuf"
+categories = ["network-programming"]
+license-file = "LICENSE.md"
+readme = "README.md"
+include = [
+    "/Cargo.toml",
+    "/CODE_OF_CONDUCT.md",
+    "/CONTRIBUTING.md",
+    "/LICENSE.md",
+    "/README.md",
+    "/SECURITY.md",
+    "/examples/**",
+    "/src/**",
+    "/tests/**",
+    "manuf.txt",
+]
+keywords = ["network", "mac", "manufacturer", "mac-address"]
+repository = "https://github.com/kkrypt0nn/rsmanuf"
+edition = "2021"
+
+[package.metadata.files]
+include = ["manuf.txt"]
+
+[dependencies]
+regex = "1.10.2"
