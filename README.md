@@ -55,7 +55,7 @@ To get a manufacturer by using the online index (the **`online`** feature needs 
 
 ```rust
 fn main() {
-    let index = rsmanuf::online::Index::new();
+    let mut index = rsmanuf::online::Index::new();
     match index.search("C4:A8:1D:73:D7:8C") {
         Ok(manuf) => {
             println!("Manufacturer: {}", manuf)
