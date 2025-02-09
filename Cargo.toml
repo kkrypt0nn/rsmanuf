@@ -2,7 +2,7 @@
 name = "rsmanuf"
 description = "📇 A very simple Rust library to get the manufacturer of a specific MAC address"
 authors = ["Krypton <root@krypton.ninja>"]
-version = "2025.2.3"
+version = "2025.2.9"
 documentation = "https://docs.rs/rsmanuf"
 categories = ["network-programming"]
 license-file = "LICENSE.md"
@@ -26,5 +26,14 @@ edition = "2021"
 [package.metadata.files]
 include = ["manuf.txt"]
 
+[[example]]
+name = "online"
+required-features = ["online"]
+
+[features]
+default = ["online"]
+online = ["dep:reqwest"]
+
 [dependencies]
 regex = "1.10.2"
+reqwest = { version = "0.12.12", features = ["blocking"], optional = true }

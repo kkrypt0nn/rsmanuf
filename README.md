@@ -27,6 +27,12 @@ If you want to use this library for one of your projects, you can install it lik
 cargo add rsmanuf
 ```
 
+If you want to have the online indexing method to always use the most up to date version of the [`manuf.txt`](./src/manuf.txt) file, you need to install it with the `online` feature:
+
+```bash
+cargo add rsmanuf --features online
+```
+
 ### Example Usage
 
 To get a manufacturer, you simply need to do the following
@@ -34,6 +40,22 @@ To get a manufacturer, you simply need to do the following
 ```rust
 fn main() {
     let index = rsmanuf::Index::new();
+    match index.search("C4:A8:1D:73:D7:8C") {
+        Ok(manuf) => {
+            println!("Manufacturer: {}", manuf)
+        }
+        Err(error) => {
+            println!("Error: {}", error)
+        }
+    }
+}
+```
+
+To get a manufacturer by using the online index (the **`online`** feature needs to be enabled), do the following
+
+```rust
+fn main() {
+    let index = rsmanuf::online::Index::new();
     match index.search("C4:A8:1D:73:D7:8C") {
         Ok(manuf) => {
             println!("Manufacturer: {}", manuf)

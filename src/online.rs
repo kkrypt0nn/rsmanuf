@@ -1,59 +1,66 @@
 use regex::Regex;
-use std::collections::HashMap;
+use reqwest::StatusCode;
+use std::time::{Duration, SystemTime};
 
-#[cfg(feature = "online")]
-pub mod online;
+use crate::Content;
 
-#[derive(Debug, Clone)]
-struct Content {
-    data: HashMap<String, String>,
-    slash_28: HashMap<String, String>,
-    slash_36: HashMap<String, String>,
-}
+const TTL: Duration = Duration::from_secs(3600);
 
 #[derive(Debug, Clone)]
 pub struct Index {
     content: Content,
+    last_fetched: SystemTime,
 }
 
 impl Index {
     pub fn new() -> Self {
-        Index {
-            content: Self::parse_content(include_str!("manuf.txt")),
+        match Self::fetch_manuf() {
+            Ok(content) => Index {
+                content,
+                last_fetched: SystemTime::now(),
+            },
+            Err(e) => {
+                eprintln!("{} - fallback to offline index", e);
+                Index {
+                    content: crate::Index::parse_content(include_str!("manuf.txt")),
+                    last_fetched: SystemTime::now(),
+                }
+            }
         }
     }
 
-    fn parse_content(source: &str) -> Content {
-        let mut data = HashMap::<String, String>::new();
-        let mut slash_28 = HashMap::<String, String>::new();
-        let mut slash_36 = HashMap::<String, String>::new();
-
-        for line in source.lines() {
-            let current_line = line.replace("\t\t", "\t");
-            let fields = current_line.split("\t").collect::<Vec<&str>>();
-
-            if fields[0].starts_with("#") || line.is_empty() {
-                continue;
+    fn fetch_manuf() -> Result<Content, String> {
+        if let Ok(response) = reqwest::blocking::get(
+            "https://raw.githubusercontent.com/kkrypt0nn/rsmanuf/refs/heads/main/src/manuf.txt",
+        ) {
+            if response.status() != StatusCode::OK {
+                return Err(String::from(
+                    "Failed performing an HTTP request to the online 'manuf.txt' file",
+                ));
             }
-
-            let mac = fields[0].to_string();
-            let manuf = fields[1].to_string();
-            if mac.contains(":00/28") {
-                slash_28.insert(mac.clone(), manuf.clone());
-            } else if mac.contains(":00/36") {
-                slash_36.insert(mac.clone(), manuf.clone());
+            if let Ok(source) = response.text() {
+                Ok(crate::Index::parse_content(&source))
+            } else {
+                Err(String::from(
+                    "Failed getting the content of the online 'manuf.txt' file",
+                ))
             }
-            data.insert(mac, manuf);
-        }
-
-        Content {
-            data,
-            slash_28,
-            slash_36,
+        } else {
+            Err(String::from(
+                "Failed performing an HTTP request to the online 'manuf.txt' file",
+            ))
         }
     }
 
-    pub fn search(&self, mac: impl Into<String>) -> Result<String, String> {
+    pub fn search(&mut self, mac: impl Into<String>) -> Result<String, String> {
+        // Update the content if TTL has passed
+        if SystemTime::now() > self.last_fetched + TTL {
+            if let Ok(content) = Self::fetch_manuf() {
+                self.content = content;
+                self.last_fetched = SystemTime::now()
+            }
+        }
+
         let mut new_mac: String = mac.into();
         new_mac = new_mac.to_ascii_uppercase().replace("-", ":");
 
