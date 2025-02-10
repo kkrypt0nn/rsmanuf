@@ -1,9 +1,6 @@
 name: rsmanuf CI (Lint & Test)
 
-on: [ push, pull_request ]
-
-permissions:
-  contents: read
+on: [push, pull_request]
 
 jobs:
   rustfmt:
@@ -25,7 +22,7 @@ jobs:
   test:
     name: Test
     runs-on: ${{ matrix.os }}
-    needs: [ rustfmt, clippy ]
+    needs: [rustfmt, clippy]
     strategy:
       matrix:
         os:

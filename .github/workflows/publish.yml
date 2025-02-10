@@ -4,10 +4,10 @@ on:
   push:
     tags:
       - "*"
+  workflow_run:
+    workflows: ["Monthly Release"]
+    types: [completed]
   workflow_dispatch:
-
-permissions:
-  contents: read
 
 jobs:
   test:

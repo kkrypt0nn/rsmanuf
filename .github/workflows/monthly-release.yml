@@ -12,11 +12,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Set Version Variables
-        run: echo "VERSION=2025.2.11" >> $GITHUB_ENV
-      #   run: echo "VERSION=$(date +'%-Y.%-m.%-d')" >> $GITHUB_ENV
+        run: echo "VERSION=$(date +'%-Y.%-m.%-d')" >> $GITHUB_ENV
       - name: Set Release Date
-        run: echo "RELEASE_DATE=February 2025" >> $GITHUB_ENV
-      #   run: echo "RELEASE_DATE=$(date +'%-B %-Y')" >> $GITHUB_ENV
+        run: echo "RELEASE_DATE=$(date +'%-B %-Y')" >> $GITHUB_ENV
       - name: Update Cargo.toml Version
         run: sed -i 's/^version = ".*"/version = "'"$VERSION"'"/' Cargo.toml
       - name: Commit and Push Changes
@@ -28,7 +26,7 @@ jobs:
           git push
       - name: Create Git Tag
         run: |
-          git tag $VERSION
+          git tag v$VERSION
           git push origin $VERSION
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
