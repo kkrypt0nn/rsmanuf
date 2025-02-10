@@ -7,7 +7,7 @@
 # <http://standards-oui.ieee.org/cid/cid.csv>
 # <http://standards-oui.ieee.org/iab/iab.csv>
 # <http://standards-oui.ieee.org/oui28/mam.csv>
-# <http://standards-oui.ieee.org/oui36/oui36.csv> 
+# <http://standards-oui.ieee.org/oui36/oui36.csv>
 #
 # You can get the latest version of this file from
 # https://github.com/kkrypt0nn/rsmanuf/blob/main/src/manuf.txt
