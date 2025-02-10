@@ -33,14 +33,19 @@ If you want to have the online indexing method to always use the most up to date
 cargo add rsmanuf --features online
 ```
 
+### Versioning
+
+The versioning of the library is the following: `YYYY.MM.DD` where the leading `0` is **removed** from the version due to Crates.io not wanting leading zeroes.
+
+Versions are automatically released every month on the first day of that month.
+
 ### Example Usage
 
-To get a manufacturer, you simply need to do the following
+#### Offline Lookup (preferred)
 
 ```rust
 fn main() {
-    let index = rsmanuf::Index::new();
-    match index.search("C4:A8:1D:73:D7:8C") {
+    match rsmanuf::lookup("C4:A8:1D:73:D7:8C") {
         Ok(manuf) => {
             println!("Manufacturer: {}", manuf)
         }
@@ -51,12 +56,14 @@ fn main() {
 }
 ```
 
-To get a manufacturer by using the online index (the **`online`** feature needs to be enabled), do the following
+#### Online Lookup
+
+> [!NOTE]
+> The **`online`** feature needs to be enabled.
 
 ```rust
 fn main() {
-    let mut index = rsmanuf::online::Index::new();
-    match index.search("C4:A8:1D:73:D7:8C") {
+    match rsmanuf::online::lookup("C4:A8:1D:73:D7:8C") {
         Ok(manuf) => {
             println!("Manufacturer: {}", manuf)
         }

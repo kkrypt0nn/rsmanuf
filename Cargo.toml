@@ -31,8 +31,9 @@ name = "online"
 required-features = ["online"]
 
 [features]
-online = ["dep:reqwest"]
+online = ["dep:arc-swap", "dep:reqwest"]
 
 [dependencies]
+arc-swap = { version = "1.7.1", optional = true }
 regex = "1.10.2"
 reqwest = { version = "0.12.12", features = ["blocking"], optional = true }
