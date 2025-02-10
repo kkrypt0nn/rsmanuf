@@ -5,6 +5,9 @@ on:
     - cron: '0 */12 * * *'
   workflow_dispatch: 
 
+permissions:
+  contents: write
+
 jobs:
   update_manufacturer_file:
     runs-on: ubuntu-latest
@@ -29,5 +32,7 @@ jobs:
       - name: Update manufacturer file
         if: steps.verify_diff.outputs.changed == 'true'
         run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git commit -am "manuf: Update of `date +'%Y-%m-%d %H:%M:%S'`"
           git push
