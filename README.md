@@ -7,7 +7,6 @@
 [![CI Badge](https://github.com/kkrypt0nn/rsmanuf/actions/workflows/ci.yml/badge.svg)](https://github.com/kkrypt0nn/rsmanuf/actions)
 [![Dependency Status Badge](https://deps.rs/repo/github/kkrypt0nn/rsmanuf/status.svg)](https://deps.rs/repo/github/kkrypt0nn/rsmanuf)
 
-[![Discord Server Badge](https://img.shields.io/discord/739934735387721768?logo=discord)](https://discord.gg/mTBrXyWxAF)
 [![Last Commit Badge](https://img.shields.io/github/last-commit/kkrypt0nn/rsmanuf)](https://github.com/kkrypt0nn/rsmanuf/commits/main)
 [![Conventional Commits Badge](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org/en/v1.0.0/)
 
@@ -76,7 +75,7 @@ fn main() {
 
 ## Troubleshooting
 
-If you have problems using the crate, you can open up an [issue](https://github.com/kkrypt0nn/rsmanuf/issues) or join my [Discord server](https://discord.gg/mTBrXyWxAF).
+If you have problems using the crate, you can open up an [issue](https://github.com/kkrypt0nn/rsmanuf/issues).
 
 ## Contributing
 
