@@ -2,6 +2,7 @@
 
 # rsmanuf
 
+[![Discord Server Badge](https://img.shields.io/discord/1358456011316396295?logo=discord)](https://discord.gg/xj6y5ZaTMr)
 [![Docs.rs Badge](https://img.shields.io/badge/docs.rs-rsmanuf-61c192.svg)](https://docs.rs/rsmanuf)
 [![Crates.io Badge](https://img.shields.io/crates/v/rsmanuf.svg?color=fe7d37)](https://crates.io/crates/rsmanuf)
 [![CI Badge](https://github.com/kkrypt0nn/rsmanuf/actions/workflows/ci.yml/badge.svg)](https://github.com/kkrypt0nn/rsmanuf/actions)
