@@ -76,7 +76,7 @@ fn main() {
 
 ## Troubleshooting
 
-If you have problems using the crate, you can open up an [issue](https://github.com/kkrypt0nn/rsmanuf/issues).
+If you have problems using the crate, you can open up an [issue](https://github.com/kkrypt0nn/rsmanuf/issues) or join my [Discord server](https://discord.gg/xj6y5ZaTMr).
 
 ## Contributing
 
