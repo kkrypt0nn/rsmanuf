@@ -81,28 +81,19 @@ fn check_slash_36(mac: &str) -> Option<String> {
     CONTENT.slash_36.get(&new_mac).cloned()
 }
 
-#[deprecated(
-    since = "2025.2.11",
-    note = "please use `rsmanuf::lookup()` instead"
-)]
+#[deprecated(since = "2025.2.11", note = "please use `rsmanuf::lookup()` instead")]
 #[derive(Debug, Clone)]
 pub struct Index {}
 
 #[allow(deprecated)]
 impl Index {
     #[allow(clippy::new_without_default)]
-    #[deprecated(
-        since = "2025.2.11",
-        note = "please use `rsmanuf::lookup()` instead"
-    )]
+    #[deprecated(since = "2025.2.11", note = "please use `rsmanuf::lookup()` instead")]
     pub fn new() -> Self {
         Index {}
     }
 
-    #[deprecated(
-        since = "2025.2.11",
-        note = "please use `rsmanuf::lookup()` instead"
-    )]
+    #[deprecated(since = "2025.2.11", note = "please use `rsmanuf::lookup()` instead")]
     pub fn search(&self, mac: impl Into<String>) -> Result<String, String> {
         lookup(mac)
     }
