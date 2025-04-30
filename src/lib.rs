@@ -83,7 +83,7 @@ fn check_slash_36(mac: &str) -> Option<String> {
 
 #[deprecated(
     since = "2025.2.11",
-    note = "please use `rsmanuf::online::lookup()` instead"
+    note = "please use `rsmanuf::lookup()` instead"
 )]
 #[derive(Debug, Clone)]
 pub struct Index {}
@@ -93,7 +93,7 @@ impl Index {
     #[allow(clippy::new_without_default)]
     #[deprecated(
         since = "2025.2.11",
-        note = "please use `rsmanuf::online::lookup()` instead"
+        note = "please use `rsmanuf::lookup()` instead"
     )]
     pub fn new() -> Self {
         Index {}
@@ -101,7 +101,7 @@ impl Index {
 
     #[deprecated(
         since = "2025.2.11",
-        note = "please use `rsmanuf::online::lookup()` instead"
+        note = "please use `rsmanuf::lookup()` instead"
     )]
     pub fn search(&self, mac: impl Into<String>) -> Result<String, String> {
         lookup(mac)
