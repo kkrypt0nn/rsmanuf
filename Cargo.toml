@@ -2,7 +2,7 @@
 name = "rsmanuf"
 description = "📇 A very simple Rust library to get the manufacturer of a specific MAC address"
 authors = ["Krypton <root@krypton.ninja>"]
-version = "2025.4.1"
+version = "2025.5.1"
 documentation = "https://docs.rs/rsmanuf"
 categories = ["network-programming"]
 license-file = "LICENSE.md"
