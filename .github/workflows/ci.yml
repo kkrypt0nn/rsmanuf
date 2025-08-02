@@ -16,7 +16,7 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
       - name: Download manuf.txt
-        run: wget https://raw.githubusercontent.com/kkrypt0nn/manuf/refs/heads/main/manuf.txt -o src/manuf.txt
+        run: wget https://raw.githubusercontent.com/kkrypt0nn/manuf/refs/heads/main/manuf.txt -O src/manuf.txt
       - name: Run rustfmt
         run: cargo fmt --all -- --check --verbose
       - name: Run Clippy

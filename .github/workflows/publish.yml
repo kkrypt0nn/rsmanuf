@@ -20,6 +20,6 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
       - name: Download manuf.txt
-        run: wget https://raw.githubusercontent.com/kkrypt0nn/manuf/refs/heads/main/manuf.txt -o src/manuf.txt
+        run: wget https://raw.githubusercontent.com/kkrypt0nn/manuf/refs/heads/main/manuf.txt -O src/manuf.txt
       - name: Publish
         run: cargo publish --verbose --all-features --token ${{ secrets.CARGO_TOKEN }} --allow-dirty
