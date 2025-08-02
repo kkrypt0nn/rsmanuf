@@ -57,7 +57,7 @@ pub fn lookup(mac: impl Into<String>) -> Result<String, String> {
 
 fn fetch_manuf() -> Result<BTreeMap<(u64, u8), String>, String> {
     if let Ok(response) = reqwest::blocking::get(
-        "https://raw.githubusercontent.com/kkrypt0nn/rsmanuf/refs/heads/main/src/manuf.txt",
+        "https://raw.githubusercontent.com/kkrypt0nn/manuf/refs/heads/main/manuf.txt",
     ) {
         if response.status() != StatusCode::OK {
             return Err(String::from(
