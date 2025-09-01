@@ -4,7 +4,6 @@ pub(crate) fn mac_to_u64(mac: &str) -> Option<u64> {
     let hex: String = mac.split(|c| c == ':').filter(|s| !s.is_empty()).collect();
     let padded_hex = match hex.len() {
         6 => format!("{}000000", hex),
-        10 => format!("{}00", hex),
         12 => hex,
         _ => return None,
     };
@@ -14,7 +13,7 @@ pub(crate) fn mac_to_u64(mac: &str) -> Option<u64> {
 
 pub(crate) fn mask_mac(mac: u64, cidr: u8) -> u64 {
     let mask = match cidr {
-        24 => 0xFFFFF0000000,
+        24 => 0xFFFFFF000000,
         28 => 0xFFFFFFF00000,
         36 => 0xFFFFFFFFF000,
         _ => 0xFFFFFFFFFFFF,
