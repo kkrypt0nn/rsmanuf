@@ -1,4 +1,4 @@
-extern crate rsmanuf;
+use rsmanuf;
 
 fn main() {
     match rsmanuf::online::lookup("C4:A8:1D:73:D7:8C") {
