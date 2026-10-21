@@ -1,46 +1,44 @@
-use regex::Regex;
+use regex::bytes::{Regex, RegexBuilder};
 use std::{collections::BTreeMap, sync::LazyLock};
 
+mod error;
 mod helpers;
 #[cfg(feature = "online")]
+#[cfg_attr(docsrs, doc(cfg(feature = "online")))]
 pub mod online;
+
+pub use error::Error;
 
 static CONTENT: LazyLock<BTreeMap<(u64, u8), String>> =
     LazyLock::new(|| helpers::parse_content(include_str!("manuf.txt")));
+static MAC_REGEX: LazyLock<Regex> =
+    LazyLock::new(|| RegexBuilder::new(r"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$")
+        .unicode(false)
+        .build()
+        .unwrap()
+    );
 
-pub fn lookup(mac: impl Into<String>) -> Result<String, String> {
-    let new_mac = mac.into().to_ascii_uppercase().replace("-", ":");
+fn lookup_from_content(content: &BTreeMap<(u64, u8), String>, mac: impl Into<String>) -> Result<Option<String>, Error> {
+    let new_mac = mac.into().to_ascii_uppercase().replace('-', ":");
 
-    let regex = Regex::new(r"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$").unwrap();
-    if regex.find(new_mac.as_str()).is_none() {
-        return Err(String::from("Invalid MAC address"));
+    if MAC_REGEX.find(new_mac.as_bytes()).is_none() {
+        return Err(Error::InvalidMacAddress);
     }
-    let mac_val = helpers::mac_to_u64(&new_mac).ok_or("Invalid MAC format")?;
 
-    for &cidr in &[36, 28, 24] {
+    let mac_val = helpers::mac_to_u64(&new_mac).ok_or(Error::InvalidMacAddress)?;
+
+    for cidr in [36, 28, 24] {
         let masked = helpers::mask_mac(mac_val, cidr);
-        if let Some(m) = CONTENT.get(&(masked, cidr)) {
-            return Ok(m.clone());
+
+        if let Some(m) = content.get(&(masked, cidr)) {
+            return Ok(Some(m.clone()));
         }
     }
 
-    Ok(String::from("unknown"))
+    Ok(None)
 }
 
-#[deprecated(since = "2025.2.11", note = "please use `rsmanuf::lookup()` instead")]
-#[derive(Debug, Clone)]
-pub struct Index {}
-
-#[allow(deprecated)]
-impl Index {
-    #[allow(clippy::new_without_default)]
-    #[deprecated(since = "2025.2.11", note = "please use `rsmanuf::lookup()` instead")]
-    pub fn new() -> Self {
-        Index {}
-    }
-
-    #[deprecated(since = "2025.2.11", note = "please use `rsmanuf::lookup()` instead")]
-    pub fn search(&self, mac: impl Into<String>) -> Result<String, String> {
-        lookup(mac)
-    }
+#[inline]
+pub fn lookup(mac: impl Into<String>) -> Result<Option<String>, Error> {
+    lookup_from_content(&CONTENT, mac)
 }
