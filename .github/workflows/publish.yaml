@@ -18,8 +18,10 @@ jobs:
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
       - name: Download manuf.txt
         run: wget https://raw.githubusercontent.com/kkrypt0nn/manuf/refs/heads/main/manuf.txt -O src/manuf.txt
+
       - name: Publish
         run: cargo publish --verbose --all-features --token ${{ secrets.CARGO_TOKEN }} --allow-dirty
